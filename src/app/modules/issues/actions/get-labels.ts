@@ -1,6 +1,9 @@
+import { sleep } from '@helpers/sleep';
 import { GithubLabel } from '../interfaces';
 
 export const getLabels = async (): Promise<GithubLabel[]> => {
+  await sleep(1500);
+
   try {
     const resp = await fetch(
       'https://api.github.com/repos/angular/angular/labels'
