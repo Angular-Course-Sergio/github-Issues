@@ -20,6 +20,13 @@
 
   <div class="mt-4 flex flex-col">
     <h3>Labels:</h3>
+
+    @if (labelsQuery.isLoading()) {
+      <p>Estamos cargando</p>
+    }@else {
+      <p>Tenemos labels</p>
+    }
+
     <!-- Todo: Spinner  -->
     <!-- Todo: Label Selector  -->
   </div>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { IssuesService } from '../../services/issues.service';
 
 @Component({
   selector: 'app-issues-list-page',
@@ -7,4 +8,10 @@ import { RouterLink } from '@angular/router';
   imports: [RouterLink],
   templateUrl: './issues-list-page.component.html',
 })
-export default class IssuesListPageComponent {}
+export default class IssuesListPageComponent {
+  issuesService = inject(IssuesService);
+
+  get labelsQuery() {
+    return this.issuesService.labelsQuery;
+  }
+}
