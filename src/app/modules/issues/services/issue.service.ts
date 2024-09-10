@@ -4,6 +4,7 @@ import {
   injectQueryClient,
 } from '@tanstack/angular-query-experimental';
 import { getIssueByNumber, getIssueCommentsByNumber } from '../actions';
+import { GithubIssue } from '../interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -34,6 +35,12 @@ export class IssueService {
       queryKey: ['issue', issueId],
       queryFn: () => getIssueByNumber(issueId),
       staleTime: 1000 * 60 * 5,
+    });
+  }
+
+  setIssueData(issue: GithubIssue) {
+    this.queryClient.setQueryData(['issue', issue.number.toString()], issue, {
+      updatedAt: Date.now() + 1000 * 60,
     });
   }
 }
