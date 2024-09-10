@@ -23,4 +23,5 @@ export default class IssuesPageComponent {
   );
 
   issueQuery = this.issueService.issueQuery;
+  issueCommentsQuery = this.issueService.issueCommentsQuery;
 }
