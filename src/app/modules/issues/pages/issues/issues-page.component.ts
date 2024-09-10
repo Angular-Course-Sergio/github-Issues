@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { IssueService } from '../../services/issue.service';
+import { IssueCommentComponent } from "../../components/issue-comment/issue-comment.component";
 
 @Component({
   selector: 'app-issues-page',
   standalone: true,
-  imports: [],
+  imports: [RouterLink, IssueCommentComponent],
   templateUrl: './issues-page.component.html',
 })
 export default class IssuesPageComponent {
@@ -20,4 +21,6 @@ export default class IssuesPageComponent {
       tap((number) => this.issueService.setIssueNumber(number))
     )
   );
+
+  issueQuery = this.issueService.issueQuery;
 }
