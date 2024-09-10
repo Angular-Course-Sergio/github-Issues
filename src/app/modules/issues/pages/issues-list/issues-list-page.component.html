@@ -4,16 +4,34 @@
 <section class="grid grid-cols-1 sm:grid-cols-3 gap-2">
   <div class="flex flex-col col-span-3">
     <div class="flex gap-2">
-      <button class="btn active">All</button>
-      <button class="btn">Open</button>
-      <button class="btn">Closed</button>
+      <button
+        (click)="onChangeState('all')"
+        [class.active]="issuesService.selectedState() === 'all'"
+        class="btn"
+      >
+        All
+      </button>
+      <button
+        (click)="onChangeState('open')"
+        [class.active]="issuesService.selectedState() === 'open'"
+        class="btn"
+      >
+        Open
+      </button>
+      <button
+        (click)="onChangeState('closed')"
+        [class.active]="issuesService.selectedState() === 'closed'"
+        class="btn"
+      >
+        Closed
+      </button>
     </div>
   </div>
 
   <div class="mt-4 flex flex-col col-span-2">
     <!-- <a routerLink="/issue/123">Ir a Issue 123</a> -->
     @for(issue of issuesQuery.data(); track issue.id) {
-    <issue-item [issue]="issue"/>
+    <issue-item [issue]="issue" />
     } @empty { @if(issuesQuery.isLoading()) {
     <p>Estamos cargando</p>
     } @else {
