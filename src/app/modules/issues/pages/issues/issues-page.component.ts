@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map, tap } from 'rxjs';
 import { IssueService } from '../../services/issue.service';
-import { IssueCommentComponent } from "../../components/issue-comment/issue-comment.component";
+import { IssueCommentComponent } from '../../components/issue-comment/issue-comment.component';
 
 @Component({
   selector: 'app-issues-page',
@@ -24,4 +24,8 @@ export default class IssuesPageComponent {
 
   issueQuery = this.issueService.issueQuery;
   issueCommentsQuery = this.issueService.issueCommentsQuery;
+
+  issueCommentsNumber = computed<number>(
+    () => this.issueQuery.data()?.comments ?? 0
+  );
 }
