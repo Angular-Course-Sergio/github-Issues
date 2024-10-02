@@ -21,12 +21,29 @@ describe('GetIssueByNumber Action', () => {
 
     spyOn(window, 'fetch').and.resolveTo(issueResponse);
 
-    const issue = await getIssueByNumber(issueNumber);
+    await getIssueByNumber(issueNumber);
 
     expect(window.fetch).toHaveBeenCalledWith(requestUrl, {
       headers: {
         Authorization: `Bearer ${GITHUB_TOKEN}`,
       },
     });
+  });
+
+  it('should not fetch issue succesfully', async () => {
+    const requestUrl = `${BASE_URL}/issues/${issueNumber}`;
+    const issueResponse = new Response(null, {
+      status: 404,
+      statusText: 'Not Found',
+    });
+
+    spyOn(window, 'fetch').and.resolveTo(issueResponse);
+
+    try {
+      await getIssueByNumber(issueNumber);
+      expect(true).toBeFalse();
+    } catch (error) {
+      expect(error).toBe("Can't load issue");
+    }
   });
 });
